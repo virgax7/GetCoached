@@ -33,7 +33,6 @@ public class AccountServiceControllerTest {
 
     private final MediaType jsonContentType = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-
     @BeforeAll
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -53,5 +52,9 @@ public class AccountServiceControllerTest {
                 .andExpect(jsonPath("$.lastName", is("nguyen")))
                 .andExpect(jsonPath("$.address", isEmptyOrNullString()))
                 .andExpect(jsonPath("$.zipCode", is("12345")));
+
+        mockMvc.perform(get("/account/2"))
+                .andExpect(jsonPath("$.coachAccountDetails.description", is("gentle")));
     }
+
 }
